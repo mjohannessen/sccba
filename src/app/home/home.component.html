@@ -1,0 +1,250 @@
+
+<div class="container">
+
+  <br><br>
+
+  <h2>Santa Cruz County Bar Association Database</h2>
+
+  <br><br>
+
+
+
+
+
+
+  <!-- Entry Form -->
+  <div [hidden]="!entryVisible">
+
+    <form [formGroup]="angForm1" novalidate>
+      <div class="row">
+
+        <div class="col">
+          <div class="form-group" >
+            <label>
+              <input type="text" class="form-control" formControlName="key1" #key1 />
+            </label>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label>
+             <input type="text" class="form-control" formControlName="key2" #key2 />
+            </label>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <button (click) = "auth(
+              key1.value,
+              key2.value
+            )" type="submit" class="btn btn-primary" [disabled]="angForm1.invalid" >
+            Access
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+
+
+
+
+  <!-- Stats div-->
+  <div [hidden]="!statsVisible">
+
+      <h3>Stats</h3>
+
+      <div class="row">
+        <div class="col-md-auto">
+          SCCBA Members
+        </div>
+        <div class="col col-sm-2">
+          {{sccbaMembers.length}}
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-auto">
+            SCCBA Members - Attorneys - Santa Cruz County
+          </div>
+          <div class="col col-sm-2">
+            {{santaCruzAttorneys.length}}
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-auto">
+          SCCBA Members - Attorneys - Monterey County
+        </div>
+        <div class="col col-sm-2">
+          {{montereyCountyAttorneys.length}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-auto">
+          SCCBA Members - Non-attorneys
+        </div>
+        <div class="col col-sm-2">
+          {{sccbaMembers_nonattorneys.length}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-auto">
+          SCCBA Members - Attorneys - Out of Area
+        </div>
+        <div class="col col-sm-2">
+          {{sccbaMembers_attorneys_outofarea.length}}
+        </div>
+      </div>
+
+    <br><br>
+
+  </div>
+
+
+
+
+
+
+
+  <div [hidden]="!searchVisible">
+    <h2>Search</h2>
+    <form [formGroup]="angForm2" novalidate>
+
+      <div class="form-group">
+        <label class="col-md-4">Last Name</label>
+        <label>
+          <input type="text" class="form-control" formControlName="last_name" />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">First Name</label>
+        <label>
+          <input type="text" class="form-control" formControlName="first_name" />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Status</label>
+
+          <input id="active" type="radio" value="A" name="status" formControlName="status">
+        &nbsp;
+          <label for="active">Active</label>
+        &nbsp;&nbsp;&nbsp;
+          <input id="inactive" type="radio" value="I" name="status" formControlName="status">
+        &nbsp;
+          <label for="inactive">Inactive</label>
+        &nbsp;&nbsp;&nbsp;
+          <input id="notbarmember" type="radio" value="N" name="status" formControlName="status">
+        &nbsp;
+          <label for="notbarmember">Not a State Bar Member</label>
+
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">County (if State Bar member)</label>
+        <label>
+          <input type="text" class="form-control" formControlName="county" />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">SCCBA Member</label>
+
+          <input id="membery" type="radio" value="y" name="member" formControlName="member">
+        &nbsp;
+          <label for="membery">Yes</label>
+          &nbsp;&nbsp;&nbsp;
+          <input id="membern" type="radio" value="n" name="member" formControlName="member">
+        &nbsp;
+          <label for="membern">No</label>
+
+      </div>
+
+      <div class="form-group">
+        <button (click) = "doSearch()" type="submit" class="btn btn-primary">
+          Search
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+
+  <div [hidden]="!searchResultsVisible">
+
+  <h3>Search results</h3>
+
+    <div class="row">
+      <div class="col-md-auto">
+        Records found: {{searchResults.length}}
+      </div>
+      <div class="col col-sm-2">
+        <button (click) = "exportSearchResults(searchResults)" type="submit" class="btn btn-primary btn-sm">Export</button>
+      </div>
+    </div>
+
+    <br><br>
+
+  <tbody>
+  <tr *ngFor="let aresult of searchResults">
+    <td>{{ aresult.last_name }}, {{ aresult.first_name }}</td>
+    &nbsp;&nbsp;&nbsp;
+    <td>
+      <a [routerLink]="['/edit', aresult._id]" class="btn btn-primary btn-sm">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+
+
+     <div class="form-group">
+
+     </div>
+
+
+
+  </div>
+
+
+
+<!--
+    <tbody>
+    <tr *ngFor="let member of santaCruzAttorneys">
+      <td>{{ member.sbn }}</td>
+    </tr>
+    </tbody>
+    -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

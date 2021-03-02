@@ -1,0 +1,93 @@
+<!-- show-edit.component.html -->
+<div class="container">
+
+  <br><br>
+
+  <h2>Editing {{theMember.last_name}}, {{theMember.first_name}} </h2>
+
+  <br>
+
+  <form [formGroup]="editForm" novalidate (ngSubmit)="updateMemberInfo()">
+
+    <div class="form-group">
+      <label class="col-md-4">Phone</label>
+      <label>
+        <input type="text" class="form-control" name="phone" formControlName="phone"  />
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4">Fax</label>
+      <label>
+        <input type="text" class="form-control" name="fax" formControlName="fax" />
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4">Email</label>
+      <label>
+        <input type="text" class="form-control" name="email" formControlName="email" />
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4">SCCBA Member</label>
+        <input
+          id="membery"
+          type="radio"
+          value="y"
+          name="member"
+          formControlName="member"
+          [checked] = "isMember" >
+        <label for="membery">&nbsp;&nbsp;Yes</label>
+      &nbsp;&nbsp;&nbsp;
+        <input
+          id="membern"
+          type="radio"
+          value="n"
+          name="member"
+          formControlName="member"
+          [checked] = "! isMember" >
+        <label for="membern">&nbsp;&nbsp;No</label>
+    </div>
+
+    <!--
+    <div class="form-group">
+      <label class="col-md-4">Member</label>
+      <label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="member"
+          #member
+          value="{{theMember.member}}"
+        />
+      </label>
+    </div>
+    -->
+
+    <div class="form-group">
+      <label class="col-md-4">Comments</label>
+      <label>
+        <input type="text" class="form-control" name="comments" formControlName="comments" />
+      </label>
+    </div>
+
+    <button type="submit">Submit</button>
+
+
+    <!--
+    <div class="form-group">
+      <button (click) = "updateMemberInfo()"
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="angForm.invalid" >
+        Update Member
+      </button>
+    </div>
+    -->
+
+
+  </form>
+</div>
+

@@ -1,0 +1,397 @@
+<h1>New Member</h1>
+
+
+
+<div class="card">
+
+
+<div class="card-body">
+
+
+
+
+<form [formGroup]="angForm" novalidate>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="sbnCheck" (change)="sbnClicked($event)">
+    <label class="form-check-label" for="sbnCheck">
+      Check if this is a State Bar member not in Santa Cruz or Monterey counties
+    </label>
+  </div>
+
+
+
+  <div class="form-group">
+    <label class="col-md-4">SBN</label>
+    <label>
+      <input type="text" class="form-control" formControlName="sbn" #sbn />
+    </label>
+  </div>
+  <!--
+  <div *ngIf="angForm.controls['sbn'].invalid && (angForm.controls['sbn'].dirty || angForm.controls['sbn'].touched)" class="alert alert-danger">
+    <div *ngIf="angForm.controls['sbn'].errors.required">
+      sbn is required.
+    </div>
+  </div>
+  -->
+
+
+
+  <!-- below only if not a State Bar Member -->
+
+  <div [hidden]="!addVisible">
+    New member not a State Bar Member or a State Bar member out of Santa Cruz or Monterey counties. For State bar members, use data of State Bar website.
+
+
+    <div class="form-group">
+      <label class="col-md-4">Last Name</label>
+      <label>
+        <input type="text" class="form-control" formControlName="last_name" #last_name />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">First Name</label>
+      <label>
+        <input type="text" class="form-control" formControlName="first_name" #first_name />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Admission Date</label>
+      <label>
+        <input type="text" class="form-control" formControlName="admission_date" #admission_date />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Status</label>
+      <label>
+        <input type="text" class="form-control" formControlName="status" #status />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Address 1</label>
+      <label>
+        <input type="text" class="form-control" formControlName="address_1" #address_1 />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Address 2</label>
+      <label>
+        <input type="text" class="form-control" formControlName="address_2" #address_2 />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">City</label>
+      <label>
+        <input type="text" class="form-control" formControlName="city" #city />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">State</label>
+      <label>
+        <input type="text" class="form-control" formControlName="state" #state />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">ZIP</label>
+      <label>
+        <input type="text" class="form-control" formControlName="zip" #zip />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">ZIP Plus 4</label>
+      <label>
+        <input type="text" class="form-control" formControlName="zip_plus4" #zip_plus4 />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">District</label>
+      <label>
+        <input type="text" class="form-control" formControlName="district" #district />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">County</label>
+      <label>
+        <input type="text" class="form-control" formControlName="county" #county />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Phone</label>
+      <label>
+        <input type="text" class="form-control" formControlName="phone" #phone />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Fax</label>
+      <label>
+        <input type="text" class="form-control" formControlName="fax" #fax />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Email</label>
+      <label>
+        <input type="text" class="form-control" formControlName="email" #email />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Firm</label>
+      <label>
+        <input type="text" class="form-control" formControlName="firm" #firm />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Law School</label>
+      <label>
+        <input type="text" class="form-control" formControlName="law_school" #law_school />
+      </label>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-md-4">Comments</label>
+      <label>
+        <input type="text" class="form-control" formControlName="comments" #comments />
+      </label>
+    </div>
+
+
+  </div>
+
+
+  <!-- add in logic
+  name
+  member
+  -->
+
+
+
+  <div class="form-group">
+    <button (click) = "addMember(
+      sbn.value,
+      admission_date.value,
+      last_name.value,
+      first_name.value,
+      status.value,
+      address_1.value,
+      address_2.value,
+      city.value,
+      state.value,
+      zip.value,
+      zip_plus4.value,
+      district.value,
+      county.value,
+      phone.value,
+      fax.value,
+      email.value,
+      firm.value,
+      law_school.value,
+      comments.value
+    )" type="submit" class="btn btn-primary">
+      Add Member
+    </button>
+  </div>
+
+<!--
+<div class="form-group">
+<label class="col-md-4">Venue</label>
+<input type="text" class="form-control"
+       formControlName="VenueName"
+       #VenueName />
+</div>
+<div *ngIf="angForm.controls['VenueName'].invalid && (angForm.controls['VenueName'].dirty || angForm.controls['VenueName'].touched)" class="alert alert-danger">
+  <div *ngIf="angForm.controls['VenueName'].errors.required">
+    Venue name is required.
+  </div>
+</div>
+
+
+
+<div class="form-group">
+  <label class="col-md-4">Venue Street</label>
+  <input type="text" class="form-control"
+         formControlName="VenueStreet"
+         #VenueStreet />
+</div>
+<div *ngIf="angForm.controls['VenueStreet'].invalid && (angForm.controls['VenueStreet'].dirty || angForm.controls['VenueStreet'].touched)" class="alert alert-danger">
+  <div *ngIf="angForm.controls['VenueStreet'].errors.required">
+    Venue Street is required.
+  </div>
+</div>
+
+-->
+
+<!--
+      <div class="form-group">
+        <label class="col-md-4">Venue Street</label>
+        <textarea class="form-control" rows = 7 cols = "5"
+                  formControlName="VenueStreet"
+                  #VenueStreet></textarea>
+      </div>
+      <div *ngIf="angForm.controls['VenueStreet'].invalid && (angForm.controls['VenueStreet'].dirty || angForm.controls['VenueStreet'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['VenueStreet'].errors.required">
+          Venue Street is required.
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <label class="col-md-4">Venue City</label>
+        <input type="text" class="form-control"
+               formControlName="VenueCity"
+               #VenueCity
+        />
+      </div>
+      <div *ngIf="angForm.controls['VenueCity'].invalid && (angForm.controls['VenueCity'].dirty || angForm.controls['VenueCity'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['VenueCity'].errors.required">
+          Venue City is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Venue State</label>
+        <input type="text" class="form-control"
+               formControlName="VenueState"
+               #VenueState
+        />
+      </div>
+      <div *ngIf="angForm.controls['VenueState'].invalid && (angForm.controls['VenueState'].dirty || angForm.controls['VenueState'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['VenueState'].errors.required">
+          Venue State is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Venue ZIP</label>
+        <input type="text" class="form-control"
+               formControlName="VenueZIP"
+               #VenueZIP
+        />
+      </div>
+      <div *ngIf="angForm.controls['VenueZIP'].invalid && (angForm.controls['VenueZIP'].dirty || angForm.controls['VenueZIP'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['VenueZIP'].errors.required">
+          Venue ZIP is required.
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <label class="col-md-4">Show Date</label>
+        <input type="text" class="form-control"
+               formControlName="ShowDate"
+               #ShowDate
+        />
+      </div>
+      <div *ngIf="angForm.controls['ShowDate'].invalid && (angForm.controls['ShowDate'].dirty || angForm.controls['ShowDate'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['ShowDate'].errors.required">
+          Show Date is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Show Start Time</label>
+        <input type="text" class="form-control"
+               formControlName="ShowStartTime"
+               #ShowStartTime
+        />
+      </div>
+      <div *ngIf="angForm.controls['ShowStartTime'].invalid && (angForm.controls['ShowStartTime'].dirty || angForm.controls['ShowStartTime'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['ShowStartTime'].errors.required">
+          Show Start Time is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Show Playing With</label>
+        <input type="text" class="form-control"
+               formControlName="ShowPlayingWith"
+               #ShowPlayingWith
+        />
+      </div>
+      <div *ngIf="angForm.controls['ShowPlayingWith'].invalid && (angForm.controls['ShowPlayingWith'].dirty || angForm.controls['ShowPlayingWith'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['ShowPlayingWith'].errors.required">
+          Show Playing With is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Ticket Price</label>
+        <input type="text" class="form-control"
+               formControlName="TicketPrice"
+               #TicketPrice
+        />
+      </div>
+      <div *ngIf="angForm.controls['TicketPrice'].invalid && (angForm.controls['TicketPrice'].dirty || angForm.controls['TicketPrice'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['TicketPrice'].errors.required">
+          Ticket Price is required.
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label class="col-md-4">Show Presale</label>
+        <input type="text" class="form-control"
+               formControlName="PresaleYN"
+               #PresaleYN
+        />
+      </div>
+      <div *ngIf="angForm.controls['PresaleYN'].invalid && (angForm.controls['PresaleYN'].dirty || angForm.controls['PresaleYN'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['PresaleYN'].errors.required">
+          Presale YN is required.
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <button (click) = "addShow(VenueName.value, VenueStreet.value, VenueCity.value, VenueState.value, VenueZIP.value, ShowDate.value, ShowStartTime.value, ShowPlayingWith.value, TicketPrice.value, PresaleYN.value)" type="submit" class="btn btn-primary"
+                [disabled]="angForm.pristine || angForm.invalid" >
+          Add Show
+        </button>
+      </div>
+
+-->
+
+
+    </form>
+  </div>
+
+</div>

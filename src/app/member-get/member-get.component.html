@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <td>SBN</td>
+    <!--
+    -->
+  </tr>
+  </thead>
+
+
+
+  <tbody>
+  <tr *ngFor="let member of members">
+    <td>{{ member.Sbn }}</td>
+    <!--
+    -->
+    <td>
+      <a [routerLink]="['/edit', member.Id]" class="btn btn-primary">Edit</a>
+    </td>
+    <td>
+      <a (click) = "deleteMember(member.Id)" class="btn btn-danger">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+
+
+</table>
+
+
