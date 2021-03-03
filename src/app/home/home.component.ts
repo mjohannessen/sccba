@@ -26,9 +26,9 @@ export class HomeComponent implements OnInit {
   sccbaMembers_attorneys_outofarea: Member[] = [];
   sccbaMembers: Member[] = [];
 
-  entryVisible = false;
+  entryVisible = true;
   statsVisible = false;
-  searchVisible = true;
+  searchVisible = false;
   searchResultsVisible = false;
 
   searchDict = {};
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
       .subscribe((data: Member[]) => {
         this.members = data;
         if (this.members.length > 0) {
-          console.log('members from memberService: ' + this.members.length.toString());
+          // console.log('members from memberService: ' + this.members.length.toString());
           this.dataSnapshot();
         }
       });
@@ -91,21 +91,21 @@ export class HomeComponent implements OnInit {
   }
 
   auth(key1, key2){
-    console.log('auth');
-    //  if(key1 === '123' && key2 === 'abc'){
-    this.statsVisible = true;
-    this.entryVisible = false;
-    this.searchVisible = true;
-    this.dataSnapshot();
-    //  }
+    // console.log('auth');
+    if(key1 === 'thou' && key2 === 'maker13'){
+      this.statsVisible = true;
+      this.entryVisible = false;
+      this.searchVisible = true;
+      this.dataSnapshot();
+    }
 
   }
 
 
   dataSnapshot() {
-    console.log('dataSnapshot');
-    console.log('db length: ' + this.members.length);
-    //console.log('member[0]: ' + JSON.stringify(this.members[0]));
+    // console.log('dataSnapshot');
+    // console.log('db length: ' + this.members.length);
+    // console.log('member[0]: ' + JSON.stringify(this.members[0]));
     for ( const member of this.members) {
       //  get member data
       if (member.member === 'y') {

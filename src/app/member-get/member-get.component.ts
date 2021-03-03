@@ -15,9 +15,12 @@ export class MemberGetComponent implements OnInit {
 
 
   deleteMember(id) {
+    /*
     this.ms.deleteMember(id).subscribe(res => {
       this.members.splice(id, 1);
     });
+
+     */
   }
 
 

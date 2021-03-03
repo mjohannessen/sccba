@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "n4n2": {
+    "sccba": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/n4n2",
+            "outputPath": "dist/sccba",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,19 +69,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "n4n2:build",
+            "browserTarget": "sccba:build",
             "disableHostCheck": true
           },
           "configurations": {
             "production": {
-              "browserTarget": "n4n2:build:production"
+              "browserTarget": "sccba:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "n4n2:build"
+            "browserTarget": "sccba:build"
           }
         },
         "test": {
@@ -118,15 +118,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "n4n2:serve"
+            "devServerTarget": "sccba:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "n4n2:serve:production"
+              "devServerTarget": "sccba:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "n4n2"
+  "defaultProject": "sccba"
 }

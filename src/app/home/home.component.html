@@ -3,9 +3,9 @@
 
   <br><br>
 
-  <h2>Santa Cruz County Bar Association Database</h2>
+  <h2 style="text-align: center;">Santa Cruz County Bar Association Database</h2>
 
-  <br><br>
+  <br>
 
 
 
@@ -14,39 +14,41 @@
 
   <!-- Entry Form -->
   <div [hidden]="!entryVisible">
-
+    <div class="text-center">
     <form [formGroup]="angForm1" novalidate>
-      <div class="row">
+      <div class="row justify-content-center" >
 
-        <div class="col">
+        <div class="col-6">
           <div class="form-group" >
             <label>
               <input type="text" class="form-control" formControlName="key1" #key1 />
             </label>
           </div>
-        </div>
 
-        <div class="col">
           <div class="form-group">
             <label>
              <input type="text" class="form-control" formControlName="key2" #key2 />
             </label>
           </div>
-        </div>
 
-        <div class="col">
           <div class="form-group">
+
             <button (click) = "auth(
               key1.value,
               key2.value
-            )" type="submit" class="btn btn-primary" [disabled]="angForm1.invalid" >
+            )"
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="angForm1.invalid">
             Access
             </button>
+
           </div>
         </div>
 
       </div>
     </form>
+    </div>
 
   </div>
 

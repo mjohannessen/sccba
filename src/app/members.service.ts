@@ -11,7 +11,7 @@ import { ExportToCsv } from 'export-to-csv';
 export class MembersService {
 
   // use local link
-  uri = 'http://localhost:4001/api/members';
+  uri = 'https://api.omicrondelta.space/api/members';
 
   constructor(private http: HttpClient) { }
 
@@ -36,7 +36,7 @@ export class MembersService {
   }
 
   getMembers() {
-    console.log('getMembers');
+    // console.log('getMembers');
     return this
       .http
       .get(`${this.uri}/`);
@@ -99,7 +99,7 @@ export class MembersService {
     this
       .http
       .post(`${this.uri}/update/${id}`, obj)
-      .subscribe(res => console.log('member after updae: ' + JSON.stringify(res)));
+      .subscribe(res => console.log('member after update: ' + JSON.stringify(res)));
   }
 
 
@@ -174,7 +174,7 @@ export class MembersService {
       member,
       comments
     };
-    this.http.post(`${this.uri}/members/add`, obj)
+    this.http.post(`${this.uri}/sccba/members/add`, obj)
       .subscribe(res => console.log('Done'));
   }
 
@@ -184,9 +184,13 @@ export class MembersService {
 
 
   deleteMember(id) {
+    console.log('deleteMember');
+    /*
     return this
       .http
-      .get(`${this.uri}/delete/${id}`);
+      .get(`${this.uri}/sccba/delete/${id}`);
+
+     */
   }
 
 

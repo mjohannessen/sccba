@@ -18,12 +18,21 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     
     $ nodemon server.js (in api directory - may need to install nodemon globally) - starts port 4001
     $ node app.js - starts production frontend in dist (BUILD FIRST)
-    $ node start - builds and starts webpack dev server on port 7000 (ng serve --port 7000)
+    $ node start - builds and starts webpack dev server on port 7000 (uses package.json ng serve --port 7000)
     $ ng serve --prod - dev server on port 4200 after building dist
     
- Dev server
+ Webpack Dev server
  
-     $ ng serve (in root directory) - builds and starts dev server on 4200 - reloads on changes
+     $ ng serve --port xxxx (in root directory) - builds and starts dev server on xxxx - reloads on changes
+     
+ Deploy
+ 
+     Use pm2 scripts in Applications/node_start (frontend and backend)
+     set up nginx - 2 servers (api.omicrondelta.space and [www]omicrondelta.space)
+     Add these to certbot certificate
+     Test backend: https://api.omicrondelta.space/api/members
+ 
+     
 
   UI see https://www.w3schools.com/bootstrap/bootstrap_theme_band.asp
 
