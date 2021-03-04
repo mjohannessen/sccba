@@ -7,7 +7,7 @@ const express = require('express'),
   https = require('https');
   fs = require('fs');
 
-const memberRoute = require('./routes/member.route');
+const sccbaRoute = require('./routes/sccba.route');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(
   () => {console.log('Mongo database is connected') },
@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(cors());
-app.use('/api/members', memberRoute);
+app.use('/api/sccba', sccbaRoute);
 
 const port = process.env.PORT || 4001;
 

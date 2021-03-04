@@ -4,7 +4,7 @@ export default class Member {
   name: string;
   last_name: string;
   first_name: string;
-  status: string;
+  bar_status: string;
   address_1: string;
   address_2: string;
   city: string;
@@ -18,7 +18,7 @@ export default class Member {
   email: string;
   firm: string;
   law_school: string;
-  member: string;
+  sccba_member: string;
   comments: string;
   Id: string;
 }

@@ -136,15 +136,15 @@
       <div class="form-group">
         <label class="col-md-4">Status</label>
 
-          <input id="active" type="radio" value="A" name="status" formControlName="status">
+          <input id="active" type="radio" value="A" name="bar_status" formControlName="bar_status">
         &nbsp;
           <label for="active">Active</label>
         &nbsp;&nbsp;&nbsp;
-          <input id="inactive" type="radio" value="I" name="status" formControlName="status">
+          <input id="inactive" type="radio" value="I" name="bar_status" formControlName="bar_status">
         &nbsp;
           <label for="inactive">Inactive</label>
         &nbsp;&nbsp;&nbsp;
-          <input id="notbarmember" type="radio" value="N" name="status" formControlName="status">
+          <input id="notbarmember" type="radio" value="N" name="bar_status" formControlName="bar_status">
         &nbsp;
           <label for="notbarmember">Not a State Bar Member</label>
 
@@ -160,11 +160,11 @@
       <div class="form-group">
         <label class="col-md-4">SCCBA Member</label>
 
-          <input id="membery" type="radio" value="y" name="member" formControlName="member">
+          <input id="membery" type="radio" value="y" name="sccba_member" formControlName="sccba_member">
         &nbsp;
           <label for="membery">Yes</label>
           &nbsp;&nbsp;&nbsp;
-          <input id="membern" type="radio" value="n" name="member" formControlName="member">
+          <input id="membern" type="radio" value="n" name="sccba_member" formControlName="sccba_member">
         &nbsp;
           <label for="membern">No</label>
 
@@ -173,6 +173,10 @@
       <div class="form-group">
         <button (click) = "doSearch()" type="submit" class="btn btn-primary">
           Search
+        </button>
+        &nbsp;&nbsp;
+        <button (click) = "clearForm()" type="submit" class="btn btn-primary">
+          Clear
         </button>
       </div>
 

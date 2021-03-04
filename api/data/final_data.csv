@@ -1,4 +1,4 @@
-sbn,admission_date,name,last_name,first_name,status,address_1,address_2,city,state,zip,zip_plus4,district,county,phone,fax,email,firm,law_school,member,comments
+sbn,admission_date,name,last_name,first_name,bar_status,address_1,address_2,city,state,zip,zip_plus4,district,county,phone,fax,email,firm,law_school,sccba_member,comments
 133107,12/22/87,James C. Ross                       ,Ross                ,James          ,I,798 Lighthouse Ave            ,PMB 153                       ,Monterey                      ,CA,93940,1010,6,Monterey,2063384456,2063384456,cantilon@cruzers.com                                        ,                                        ,McGill Univ                                       ,n,None
 233105,12/1/04,Luke T. Mangan                      ,Mangan              ,Luke           ,A,                              ,250 McClellan Ave Apt D       ,Monterey                      ,CA,93940,    ,6,Monterey,0,0,,                                        ,Illinois IT Chicago-Kent COL                      ,n,None
 127555,6/17/87,Michael P. Hurst                    ,Hurst               ,Michael        ,A,                              ,395 Del Monte Ctr # 196       ,Monterey                      ,CA,93940,6156,6,Monterey,0,0,,                                        ,Illinois IT Chicago-Kent COL                      ,n,None
@@ -1652,7 +1652,7 @@ sbn,admission_date,name,last_name,first_name,status,address_1,address_2,city,sta
 142877,12/11/89,Ian Hardcastle                      ,Hardcastle          ,Ian            ,I,                              ,130 Sea Terrace Way           ,Aptos                         ,CA,95003,4521,6,Santa Cruz,0,0,,                                        ,UC Hastings COL                                   ,n,None
 151637,1/4/91,Gary F. Redenbacher                 ,Redenbacher         ,Gary           ,A,                              ,PO Box 66134                  ,Scotts Valley                 ,CA,95067,6134,6,Santa Cruz,8314398821,0,,Redenbacher & Brown                     ,UC Hastings COL                                   ,y,None
 325849,6/4/19,Nadia Choudhury                     ,Choudhury           ,Nadia          ,A,                              ,"1600 Green Hills Road, Suite 1",Scotts Valley                 ,CA,95066,    ,6,Santa Cruz,0,0,,                                        ,UC Hastings COL                                   ,n,None
-39048,12/23/66,Dale Henry Dawson                   ,Dawson              ,Dale           ,A,                              ,4665 Scotts Valley Dr         ,Scotts Valley                 ,CA,95066,4227,6,Santa Cruz,8314381221,8314382812,                                                            ,DawsonPassafuimeBowden&Martinez         ,UC Hastings COL                                   ,y,None
+39048,12/23/66,Dale Henry Dawson                   ,Dawson              ,Dale           ,A,                              ,4665 Scotts Valley Dr         ,Scotts Valley                 ,CA,95066,4227,6,Santa Cruz,8314381221,8314382812,                                                            ,DawsonPassafuimeBowden&Martinez         ,UC Hastings COL                                   ,n,None
 289089,3/12/13,Gavan W. Cook                       ,Cook                ,Gavan          ,A,                              ,311 Kessler Dr                ,Ben Lomond                    ,CA,95005,9402,6,Santa Cruz,0,0,gavan@cookandcooklaw.com                                    ,                                        ,UC Hastings COL                                   ,n,None
 142231,12/11/89,Dana M. McRae                       ,McRae               ,Dana           ,A,                              ,536 Wilkes Cir                ,Santa Cruz                    ,CA,95060,5939,6,Santa Cruz,0,0,,                                        ,UC Hastings COL                                   ,n,None
 260336,12/5/08,Melia J. Powell                     ,Powell              ,Melia          ,A,                              ,501 Soquel Ave Ste F          ,Santa Cruz                    ,CA,95062,    ,6,Santa Cruz,8314268824,8314263345,,Senior Citizens Legal Services          ,UC Hastings COL                                   ,y,None
@@ -2440,17 +2440,35 @@ sbn,admission_date,name,last_name,first_name,status,address_1,address_2,city,sta
 309437,6/1/16,Joel D. Youngs                      ,Youngs              ,Joel           ,A,                              ,115 Vista Dr                  ,Watsonville                   ,CA,95076,    ,6,Santa Cruz,0,0,                                                            ,                                        ,No Information Available                          ,n,None
 285601,12/3/12,Courtney A. R. Martin               ,Martin              ,Courtney       ,A,                              ,101 Cooper St                 ,Santa Cruz                    ,CA,95060,4526,6,Santa Cruz,8312048227,0,,Martin Legal                            ,No Information Available                          ,y,None
 23093,1/17/52,Bert B Snyder Jr                    ,Snyder              ,Bert           ,I,                              ,777 Chestnut At Ctr           ,Santa Cruz                    ,CA,95060,    ,6,Santa Cruz,8314266600,0,                                                            ,                                        ,No Information Available                          ,n,None
-166964, ,Cheri Bell,Bell,Cheri,A, , , , , , , , , , ,cbell@daprile-bell.com, , ,y,None
-175263, ,Martha Carpenter,Carpenter,Martha,A, , , , , , , , , , ,martha.l@carpenterandassociates.org, , ,y,None
-53367, ,Michael Curtis,Curtis,Michael,A, , , , , , , , , , ,mcurtis@thoits.com, , ,y,None
-113142, ,Mark Haynes,Haynes,Mark,A, , , , , , , , , , ,mhaynes@hmbay.com, , ,y,None
-88669, ,Terry LaPorte,LaPorte,Terry,A, , , , , , , , , , ,terry@laportelawfirm.com, , ,y,None
-42974, ,Richard McAdams,McAdams,Richard,A, , , , , , , , , , ,rmcadams@jamsadr.com, , ,y,None
-277794, ,Elizabeth (Lisa) Peck,Peck,Elizabeth (Lisa),A, , , , , , , , , , ,lisa@peck-law.com, , ,y,None
-123456, ,Lolly Powell,Powell,Lolly,A, , , , , , , , , , ,spiltink@cruzio.com, , ,y,None
-151760, ,keith ross,ross,keith,A, , , , , , , , , , ,lawsite2003@yahoo.com, , ,y,None
-308172, ,Kyla Rowe,Rowe,Kyla,A, , , , , , , , , , ,kylakrowe@gmail.com, , ,y,None
-311905, ,Negine Sewitsky,Sewitsky,Negine,A, , , , , , , , , , ,negine_m@yahoo.com, , ,y,None
-129589, ,Barbara Small,Small,Barbara,A, , , , , , , , , , ,barbara@caltrustandestatelaw.com, , ,y,None
-45444, ,Hostbillx Tracey,Tracey,Hostbillx,A, , , , , , , , , , ,hostbill@sitestogo.net, , ,y,None
-286574, ,Jay Tufano,Tufano,Jay,A, , , , , , , , , , ,jatufano@gmail.com, , ,y,None
+166964, ,Cheri Bell,Bell,Cheri,A, , , , , , , , , , ,cbell@daprile-bell.com, , ,y,
+175263, ,Martha Carpenter,Carpenter,Martha,A, , , , , , , , , , ,martha.l@carpenterandassociates.org, , ,y,
+53367, ,Michael Curtis,Curtis,Michael,A, , , , , , , , , , ,mcurtis@thoits.com, , ,y,
+039048, ,Dale Dawson,Dawson,Dale,A, , , , , , , , , , ,dale@dpb-law.com, , ,y,
+113142, ,Mark Haynes,Haynes,Mark,A, , , , , , , , , , ,mhaynes@hmbay.com, , ,y,
+88669, ,Terry LaPorte,LaPorte,Terry,A, , , , , , , , , , ,terry@laportelawfirm.com, , ,y,
+42974, ,Richard McAdams,McAdams,Richard,A, , , , , , , , , , ,rmcadams@jamsadr.com, , ,y,
+277794, ,Elizabeth (Lisa) Peck,Peck,Elizabeth (Lisa),A, , , , , , , , , , ,lisa@peck-law.com, , ,y,
+123456, ,Lolly Powell,Powell,Lolly,A, , , , , , , , , , ,spiltink@cruzio.com, , ,y,
+151760, ,Keith Ross,Ross,Keith,A, , , , , , , , , , ,lawsite2003@yahoo.com, , ,y,
+308172, ,Kyla Rowe,Rowe,Kyla,A, , , , , , , , , , ,kylakrowe@gmail.com, , ,y,
+311905, ,Negine Sewitsky,Sewitsky,Negine,A, , , , , , , , , , ,negine_m@yahoo.com, , ,y,
+129589, ,Barbara Small,Small,Barbara,A, , , , , , , , , , ,barbara@caltrustandestatelaw.com, , ,y,
+1, ,Rae Spencer,Spencer,Rae,A, , , , , , , , , , ,rspencer@dl-lawllp.com, , ,y,
+45444, ,Hostbillx Tracey,Tracey,Hostbillx,A, , , , , , , , , , ,hostbill@sitestogo.net, , ,y,
+286574, ,Jay Tufano,Tufano,Jay,A, , , , , , , , , , ,jatufano@gmail.com, , ,y,
+, ,Yajaira Bucio Lopez,Bucio Lopez,Yajaira,N, , , , , , , , , , ,ylopez@montereylaw.edu, , ,y,Law Student
+, ,Benjamin Cardenas,Cardenas,Benjamin,N, , , , , , , , , , ,bcardenas@montereylaw.edu, , ,y,Law Student
+, ,Yesenia Cardona-Muller,Cardona-Muller,Yesenia,N, , , , , , , , , , ,jessiecardona@sbcglobal.net, , ,y,Law Student
+, ,Renee Fleming,Fleming,Renee,N, , , , , , , , , , ,scclawlib@yahoo.com, , ,y,Non-attorney member
+, ,Alex Geise,Geise,Alex,N, , , , , , , , , , ,ageise@abc-law.com, , ,y,Law Student
+, ,Kaelee Geller,Geller,Kaelee,N, , , , , , , , , , ,kgeller@montereylaw.edu, , ,y,Law Student
+, ,Lu Haussler,Haussler,Lu,N, , , , , , , , , , ,lu@mediationgroupofsc.com, , ,y,Mediator Since 1989
+, ,Heather Miller,Miller,Heather,N, , , , , , , , , , ,1heathermiller@gmail.com, , ,y,Law Student
+, ,Jennifer Navarro-Cadena,Navarro-Cadena,Jennifer,N, , , , , , , , , , ,jennifernavarro204@gmail.com, , ,y,Law Student
+, ,Mary Haley Ousley,Ousley,Mary Haley,N, , , , , , , , , , ,mousley@abc-law.com, , ,y,Law Student
+, ,Chantelle Perez,Perez,Chantelle,N, , , , , , , , , , ,cperez@montereylaw.edu, , ,y,Law Student
+, ,Amanda Profitt,Profitt,Amanda,N, , , , , , , , , , ,a.kaskowitzprofitt@gmail.com, , ,y,Paralegal
+, ,Sarah Sanders,Sanders,Sarah,N, , , , , , , , , , ,ssanders@ccah-alliance.org, , ,y,Non Practicing
+, ,Stephanie Sayler,Sayler,Stephanie,N, , , , , , , , , , ,info@saylerlegal.com, , ,y,Non-Attorney Member
+, ,Larry Stone,Stone,Larry,N, , , , , , , , , , ,mft@stonemft.com, , ,y,Non-Attorney
+, ,Daniel Weston,Weston,Daniel,N, , , , , , , , , , ,weston@uchastings.edu, , ,y,Law Student

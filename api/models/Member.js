@@ -19,7 +19,7 @@ let Member = new Schema ({
   first_name: {
     type: String
   },
-  status: {
+  bar_status: {
     type: String
   },
   address_1: {
@@ -61,7 +61,7 @@ let Member = new Schema ({
   law_school: {
     type: String
   },
-  member: {
+  sccba_member: {
     type: String
   },
   comments: {

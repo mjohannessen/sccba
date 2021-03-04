@@ -10,8 +10,10 @@ import { ExportToCsv } from 'export-to-csv';
 })
 export class MembersService {
 
-  // use local link
-  uri = 'https://api.omicrondelta.space/api/members';
+  // local link for testing (start api first)
+  uri = 'http://localhost:4001/api/sccba';
+  // production link
+  //uri = 'https://api.omicrondelta.space/api';
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +24,7 @@ export class MembersService {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalSeparator: '.',
+      filename: 'sccba_search_results',
       showLabels: true,
       showTitle: true,
       title: 'SCCBA',
@@ -36,7 +39,7 @@ export class MembersService {
   }
 
   getMembers() {
-    // console.log('getMembers');
+    console.log('member.service getMembers: ' + this.uri);
     return this
       .http
       .get(`${this.uri}/`);
@@ -45,7 +48,7 @@ export class MembersService {
 
   doSearch(searchDict) {
     console.log('getMembers (memberService)');
-    console.log('passed searchDict: ' + JSON.stringify(searchDict));
+    console.log('members.service - passed searchDict to backend: ' + JSON.stringify(searchDict));
     return this.http.post(`${this.uri}/search`, searchDict)
       .pipe(
         catchError(this.handleError)
@@ -83,7 +86,7 @@ export class MembersService {
     phone: any,
     fax: any,
     email: any,
-    member: any,
+    sccba_member: any,
     comments: any,
     id: any
   ) {
@@ -92,7 +95,7 @@ export class MembersService {
       phone,
       fax,
       email,
-      member,
+      sccba_member,
       comments
     };
     console.log('params passed to backend: ' + JSON.stringify(obj));
@@ -111,7 +114,7 @@ export class MembersService {
     name,
     last_name,
     first_name,
-    status,
+    bar_status,
     address_1,
     address_2,
     city,
@@ -125,7 +128,7 @@ export class MembersService {
     email,
     firm,
     law_school,
-    member,
+    sccba_member,
     comments
   ) {
     console.log(
@@ -134,7 +137,7 @@ export class MembersService {
       name,
       last_name,
       first_name,
-      status,
+      bar_status,
       address_1,
       address_2,
       city,
@@ -148,7 +151,7 @@ export class MembersService {
       email,
       firm,
       law_school,
-      member,
+      sccba_member,
       comments
     );
     const obj = {
@@ -157,7 +160,7 @@ export class MembersService {
       name,
       last_name,
       first_name,
-      status,
+      bar_status,
       address_1,
       address_2,
       city,
@@ -171,10 +174,10 @@ export class MembersService {
       email,
       firm,
       law_school,
-      member,
+      sccba_member,
       comments
     };
-    this.http.post(`${this.uri}/sccba/members/add`, obj)
+    this.http.post(`${this.uri}/add`, obj)
       .subscribe(res => console.log('Done'));
   }
 
@@ -188,7 +191,7 @@ export class MembersService {
     /*
     return this
       .http
-      .get(`${this.uri}/sccba/delete/${id}`);
+      .get(`${this.uri}/delete/${id}`);
 
      */
   }
@@ -208,7 +211,7 @@ admission_date
 name
 last_name
 first_name
-status
+bar_status
 address_1
 address_2
 city
@@ -222,7 +225,7 @@ fax
 email
 firm
 law_school
-member
+sccba_member
 comments
 
 */

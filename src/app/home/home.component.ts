@@ -26,9 +26,10 @@ export class HomeComponent implements OnInit {
   sccbaMembers_attorneys_outofarea: Member[] = [];
   sccbaMembers: Member[] = [];
 
-  entryVisible = true;
-  statsVisible = false;
-  searchVisible = false;
+
+  entryVisible = false;
+  statsVisible = true;
+  searchVisible = true;
   searchResultsVisible = false;
 
   searchDict = {};
@@ -48,12 +49,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInt');
     this.ms
       .getMembers()
       .subscribe((data: Member[]) => {
         this.members = data;
         if (this.members.length > 0) {
-          // console.log('members from memberService: ' + this.members.length.toString());
+          console.log('members from memberService: ' + this.members.length.toString());
           this.dataSnapshot();
         }
       });
@@ -62,24 +64,11 @@ export class HomeComponent implements OnInit {
 
   createSearchForm() {
     this.angForm2 = this.fb.group({
-      sbn: '',
-      admission_date: '',
       last_name: '',
       first_name: '',
-      status: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: '',
-      district: '',
+      bar_status: '',
       county: '',
-      phone: '',
-      fax: '',
-      email: '',
-      firm: '',
-      law_school: '',
-      member: '',
-      comments: ''
+      sccba_member: ''
     });
   }
 
@@ -90,14 +79,27 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  auth(key1, key2){
+
+  clearForm() {
+    console.log('clearForm');
+    this.angForm2.reset();
+    this.angForm2 = this.fb.group({
+      last_name: '',
+      first_name: '',
+      bar_status: '',
+      county: '',
+      sccba_member: ''
+    });
+  }
+
+  auth(key1, key2) {
     // console.log('auth');
-    if(key1 === 'thou' && key2 === 'maker13'){
+    // if (key1 === 'thou' && key2 === 'maker13'){
       this.statsVisible = true;
       this.entryVisible = false;
       this.searchVisible = true;
       this.dataSnapshot();
-    }
+    // }
 
   }
 
@@ -108,7 +110,7 @@ export class HomeComponent implements OnInit {
     // console.log('member[0]: ' + JSON.stringify(this.members[0]));
     for ( const member of this.members) {
       //  get member data
-      if (member.member === 'y') {
+      if (member.sccba_member === 'y') {
         this.sccbaMembers.push(member);
         if(member.sbn !== '') {
           this.sccbaMembers_attorneys.push(member);
@@ -140,7 +142,7 @@ export class HomeComponent implements OnInit {
   doSearch() {
     console.log('doSearch');
     const formValues = this.angForm2.value;
-    // console.log(formValues.law_school);
+    console.log('formValues: ' + JSON.stringify(formValues));
     this.searchDict = {};
     if (formValues.last_name !== '') {
       this.searchDict['last_name'] = formValues.last_name;
@@ -148,16 +150,15 @@ export class HomeComponent implements OnInit {
     if (formValues.first_name !== '') {
       this.searchDict['first_name'] = formValues.first_name;
     }
-    if (formValues.status !== '') {
-      this.searchDict['status'] = formValues.status;
+    if (formValues.bar_status !== '') {
+      this.searchDict['bar_status'] = formValues.bar_status;
     }
     if (formValues.county !== '') {
       this.searchDict['county'] = formValues.county;
     }
-    if (formValues.member !== 'undefined') {
-      this.searchDict['member'] = formValues._member;
+    if (formValues.sccba_member !== '') {
+      this.searchDict['sccba_member'] = formValues.sccba_member;
     }
-    console.log('member: ' + formValues.member);
 
     console.log('searchDict: ' + JSON.stringify(this.searchDict));
     this.ms

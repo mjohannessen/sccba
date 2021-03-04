@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const memberRoutes = express.Router();
+const sccbaRoutes = express.Router();
 
 // Require Member model in our routes module
 let Member = require('../models/Member');
@@ -11,7 +11,7 @@ let Member = require('../models/Member');
 
 
 // Defined get data(index or listing) route
-memberRoutes.route('/').get(function (req, res) {
+sccbaRoutes.route('/').get(function (req, res) {
   console.log('backend get all members')
   Member.find(function (err, member){
     if(err){
@@ -27,10 +27,13 @@ memberRoutes.route('/').get(function (req, res) {
 
 
 
+function escapeRegExp(string) {
+  // BSON types https://docs.mongodb.com/manual/reference/bson-types/
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 
 
-
-memberRoutes.route('/search').post(function (req, res) {
+sccbaRoutes.route('/search').post(function (req, res) {
   console.log('backend searching ...')
 
   console.log('req.body: ' + JSON.stringify(req.body))
@@ -84,21 +87,16 @@ memberRoutes.route('/search').post(function (req, res) {
 
    */
 
-  // BSON types https://docs.mongodb.com/manual/reference/bson-types/
-
-  function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-  }
 
 
   if (fields.length > 0) {
     Member.find({
         $and: [
-          //{$or: [{'first_name': new RegExp(req.body.first_name, 'i')}]},
+          {$or: [{'first_name': new RegExp(req.body.first_name, 'i')}]},
           {$or: [{'last_name': new RegExp(req.body.last_name, 'i')}]},
-          //{$or: [{'status':req.body.status}]},
-          //{$or: [{'county': new RegExp(req.body.county, 'i')}]},
-          //{$or: [{'member': req.body.member}]}
+          {$or: [{'status':req.body.bar_status}]},
+          {$or: [{'county': new RegExp(req.body.county, 'i')}]},
+          {$or: [{'member': req.body.sccba_member}]}
         ]
       }, function (err, members) {
         if (err) {
@@ -106,7 +104,7 @@ memberRoutes.route('/search').post(function (req, res) {
         } else {
           console.log('Count: ' + members.length)
           //console.log('members: ' + JSON.stringify(members))
-          res.json(members);
+          //res.json(members);
         }
       }
     );
@@ -131,18 +129,18 @@ memberRoutes.route('/search').post(function (req, res) {
 */
 
 
-/*
+
   Member.find(req.body, function(err, members){
     if (err){
       console.log(err);
     }
     else{
+      console.log('members found: ' + members.length)
+      // console.log(JSON.stringify(members))
       res.json(members);
     }
   })
 
-
- */
 
 
 
@@ -154,7 +152,7 @@ memberRoutes.route('/search').post(function (req, res) {
 
 
 // Defined edit route
-memberRoutes.route('/edit/:id').get(function (req, res) {
+sccbaRoutes.route('/edit/:id').get(function (req, res) {
   console.log("edit: params to backend: " + JSON.stringify(req.params));
   let id = req.params.id;
   Member.findById(id, function (err, member){
@@ -167,7 +165,7 @@ memberRoutes.route('/edit/:id').get(function (req, res) {
 
 
 //  Defined update route
-memberRoutes.route('/update/:id').post(function (req, res) {
+sccbaRoutes.route('/update/:id').post(function (req, res) {
   console.log("update passed to backend - params: " + JSON.stringify(req.params))
   console.log("update passed to backend - body: " + JSON.stringify(req.body))
   Member.findById(req.params.id, function(err, member) {
@@ -199,7 +197,7 @@ memberRoutes.route('/update/:id').post(function (req, res) {
 
 
 // Add route
-memberRoutes.route('/add').post(function (req, res) {
+sccbaRoutes.route('/add').post(function (req, res) {
   console.log("add");
   console.log("req.body: " + JSON.stringify(req.body));
   let member = new Member(req.body);
@@ -217,11 +215,11 @@ memberRoutes.route('/add').post(function (req, res) {
 
 
 // Delete | remove | destroy route
-memberRoutes.route('/delete/:id').get(function (req, res) {
+sccbaRoutes.route('/delete/:id').get(function (req, res) {
   Member.findByIdAndRemove({_id: req.params.id}, function(err, member){
     if(err) res.json(err);
     else res.json('Successfully removed');
   });
 });
 
-module.exports = memberRoutes;
+module.exports = sccbaRoutes;
