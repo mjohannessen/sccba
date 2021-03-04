@@ -13,7 +13,7 @@ export class MembersService {
   // local link for testing (start api first)
   uri = 'http://localhost:4001/api/sccba';
   // production link
-  //uri = 'https://api.omicrondelta.space/api';
+  //uri = 'https://api.omicrondelta.space/api/sccba';
 
   constructor(private http: HttpClient) { }
 
