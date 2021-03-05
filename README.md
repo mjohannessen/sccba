@@ -20,6 +20,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     $ node app.js - starts production frontend in dist (BUILD FIRST)
     $ node start - builds and starts webpack dev server on port 7000 (uses package.json ng serve --port 7000)
     $ ng serve --prod - dev server on port 4200 after building dist
+
+    $ npm start >> "cd dist && ng serve --port 7000" serves out of dist
     
  Webpack Dev server
  
