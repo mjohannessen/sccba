@@ -11,9 +11,9 @@ import { ExportToCsv } from 'export-to-csv';
 export class MembersService {
 
   // local link for testing (start api first)
-  uri = 'http://localhost:4001/api/sccba';
+  //uri = 'http://localhost:4001/api/sccba';
   // production link
-  // uri = 'https://api.omicrondelta.space/api/sccba';
+  uri = 'https://api.omicrondelta.space/api/sccba';
 
   constructor(private http: HttpClient) { }
 

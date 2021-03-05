@@ -21,13 +21,13 @@
         <div class="col-6">
           <div class="form-group" >
             <label>
-              <input type="text" class="form-control" formControlName="key1" #key1 />
+              <input type="text" class="form-control form-control-sm" formControlName="key1" #key1 />
             </label>
           </div>
 
           <div class="form-group">
             <label>
-             <input type="text" class="form-control" formControlName="key2" #key2 />
+             <input type="text" class="form-control form-control-sm" formControlName="key2" #key2 />
             </label>
           </div>
 
@@ -38,7 +38,7 @@
               key2.value
             )"
                     type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-primary btn-sm"
                     [disabled]="angForm1.invalid">
             Access
             </button>
@@ -60,50 +60,65 @@
 
       <h3>Stats</h3>
 
+      <br>
+
+      SCCBA Members: {{sccbaMembers.length}}
+      <br><br>
+      SCCBA Members - Attorneys - Santa Cruz County: {{santaCruzAttorneys.length}}
+      <br><br>
+      SCCBA Members - Attorneys - Monterey County: {{montereyCountyAttorneys.length}}
+      <br><br>
+      SCCBA Members - Non-attorneys: {{sccbaMembers_nonattorneys.length}}
+      <br><br>
+      SCCBA Members - Attorneys - Out of Area: {{sccbaMembers_attorneys_outofarea.length}}
+
+    <!--
       <div class="row">
-        <div class="col-md-auto">
-          SCCBA Members
+        <div class="col-12">
+          SCCBA Members: {{sccbaMembers.length}}
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-2">
           {{sccbaMembers.length}}
         </div>
       </div>
 
       <div class="row">
-          <div class="col-md-auto">
-            SCCBA Members - Attorneys - Santa Cruz County
+          <div class="col-12">
+            SCCBA Members - Attorneys - Santa Cruz County: {{santaCruzAttorneys.length}}
           </div>
-          <div class="col col-sm-2">
+          <div class="col col-2">
             {{santaCruzAttorneys.length}}
           </div>
       </div>
 
       <div class="row">
-        <div class="col-md-auto">
-          SCCBA Members - Attorneys - Monterey County
+        <div class="col-12">
+          SCCBA Members - Attorneys - Monterey County: {{montereyCountyAttorneys.length}}
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-2">
           {{montereyCountyAttorneys.length}}
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-auto">
-          SCCBA Members - Non-attorneys
+        <div class="col-12">
+          SCCBA Members - Non-attorneys: {{sccbaMembers_nonattorneys.length}}
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-2">
           {{sccbaMembers_nonattorneys.length}}
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-auto">
-          SCCBA Members - Attorneys - Out of Area
+        <div class="col-12">
+          SCCBA Members - Attorneys - Out of Area: {{sccbaMembers_attorneys_outofarea.length}}
         </div>
-        <div class="col col-sm-2">
+        <div class="col col-2">
           {{sccbaMembers_attorneys_outofarea.length}}
         </div>
       </div>
+
+      -->
 
     <br><br>
 
@@ -116,20 +131,20 @@
 
 
   <div [hidden]="!searchVisible">
-    <h2>Search</h2>
+    <h3>Search</h3>
     <form [formGroup]="angForm2" novalidate>
 
       <div class="form-group">
         <label class="col-md-4">Last Name</label>
         <label>
-          <input type="text" class="form-control" formControlName="last_name" />
+          <input type="text" class="form-control form-control-sm" formControlName="last_name" />
         </label>
       </div>
 
       <div class="form-group">
         <label class="col-md-4">First Name</label>
         <label>
-          <input type="text" class="form-control" formControlName="first_name" />
+          <input type="text" class="form-control form-control-sm" formControlName="first_name" />
         </label>
       </div>
 
@@ -153,7 +168,7 @@
       <div class="form-group">
         <label class="col-md-4">County (if State Bar member)</label>
         <label>
-          <input type="text" class="form-control" formControlName="county" />
+          <input type="text" class="form-control form-control-sm" formControlName="county" />
         </label>
       </div>
 
@@ -171,11 +186,11 @@
       </div>
 
       <div class="form-group">
-        <button (click) = "doSearch()" type="submit" class="btn btn-primary">
+        <button (click) = "doSearch()" type="submit" class="btn btn-primary btn-sm">
           Search
         </button>
         &nbsp;&nbsp;
-        <button (click) = "clearForm()" type="submit" class="btn btn-primary">
+        <button (click) = "clearForm()" type="submit" class="btn btn-primary btn-sm">
           Clear
         </button>
       </div>

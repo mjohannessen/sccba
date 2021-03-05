@@ -22,23 +22,25 @@ export class HomeComponent implements OnInit {
   montereyCountyAttorneys: Member[] = [];
   sccbaMembers_attorneys: Member[] = [];
   sccbaMembers_nonattorneys: Member[] = [];
-  sccbaMembers_attorneys_inarea: Member[] = [];
+  // sccbaMembers_attorneys_inarea: Member[] = [];
   sccbaMembers_attorneys_outofarea: Member[] = [];
   sccbaMembers: Member[] = [];
 
   searchDict = {};
 
   // production
-  //entryVisible = true;
-  //statsVisible = false;
-  //searchVisible = false;
-  //searchResultsVisible = false;
+  entryVisible = true;
+  statsVisible = false;
+  searchVisible = false;
+  searchResultsVisible = false;
 
   // testing
-  entryVisible = true;
-  statsVisible = true;
-  searchVisible = true;
-  searchResultsVisible = false;
+  //entryVisible = true;
+  //statsVisible = true;
+  //searchVisible = true;
+  //searchResultsVisible = false;
+
+  authorized = false;
 
 
 
@@ -57,14 +59,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('ngOnInt');
+    console.log('ngOnInt');
     this.ms
       .getMembers()
       .subscribe((data: Member[]) => {
         this.members = data;
         if (this.members.length > 0) {
-          // console.log('members from memberService: ' + this.members.length.toString());
-          this.dataSnapshot();
+          console.log('members from memberService: ' + this.members.length.toString());
+          this.dataSnapshot(this.members);
         }
       });
   }
@@ -106,17 +108,19 @@ export class HomeComponent implements OnInit {
       this.statsVisible = true;
       this.entryVisible = false;
       this.searchVisible = true;
+      this.authorized = true;
+      //window.location.reload();
       //this.dataSnapshot();
     }
 
   }
 
 
-  dataSnapshot() {
-    // console.log('dataSnapshot');
-    // console.log('db length: ' + this.members.length);
-    // console.log('member[0]: ' + JSON.stringify(this.members[0]));
-    for ( const member of this.members) {
+  dataSnapshot(dbEntries) {
+    console.log('dataSnapshot');
+    console.log('db length: ' + dbEntries.length);
+    console.log('dbEntries[0]: ' + JSON.stringify(dbEntries[0]));
+    for ( const member of dbEntries) {
       //  get member data
       if (member.sccba_member === 'y') {
         this.sccbaMembers.push(member);
@@ -136,14 +140,14 @@ export class HomeComponent implements OnInit {
         }
       }
     }
-    /*
+
     console.log('sccbaMembers length: ' + this.sccbaMembers.length);
     console.log('sccbaMembers_attorneys length: ' + this.sccbaMembers_attorneys.length);
     console.log('montereyCountyAttorneys length: ' + this.montereyCountyAttorneys.length);
     console.log('santaCruzAttorneys length: ' + this.santaCruzAttorneys.length);
     console.log('sccbaMembers_attorneys_outofarea length: ' + this.sccbaMembers_attorneys_outofarea.length);
     console.log('sccbaMembers_nonattorneys length: ' + this.sccbaMembers_nonattorneys.length);
-     */
+
 
   }
 
