@@ -26,13 +26,21 @@ export class HomeComponent implements OnInit {
   sccbaMembers_attorneys_outofarea: Member[] = [];
   sccbaMembers: Member[] = [];
 
+  searchDict = {};
 
+  // production
+  //entryVisible = true;
+  //statsVisible = false;
+  //searchVisible = false;
+  //searchResultsVisible = false;
+
+  // testing
   entryVisible = true;
-  statsVisible = false;
-  searchVisible = false;
+  statsVisible = true;
+  searchVisible = true;
   searchResultsVisible = false;
 
-  searchDict = {};
+
 
 
 
@@ -98,7 +106,7 @@ export class HomeComponent implements OnInit {
       this.statsVisible = true;
       this.entryVisible = false;
       this.searchVisible = true;
-      this.dataSnapshot();
+      //this.dataSnapshot();
     }
 
   }
