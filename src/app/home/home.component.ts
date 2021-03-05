@@ -27,9 +27,9 @@ export class HomeComponent implements OnInit {
   sccbaMembers: Member[] = [];
 
 
-  entryVisible = false;
-  statsVisible = true;
-  searchVisible = true;
+  entryVisible = true;
+  statsVisible = false;
+  searchVisible = false;
   searchResultsVisible = false;
 
   searchDict = {};
@@ -49,13 +49,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInt');
+    // console.log('ngOnInt');
     this.ms
       .getMembers()
       .subscribe((data: Member[]) => {
         this.members = data;
         if (this.members.length > 0) {
-          console.log('members from memberService: ' + this.members.length.toString());
+          // console.log('members from memberService: ' + this.members.length.toString());
           this.dataSnapshot();
         }
       });
@@ -94,12 +94,12 @@ export class HomeComponent implements OnInit {
 
   auth(key1, key2) {
     // console.log('auth');
-    // if (key1 === 'thou' && key2 === 'maker13'){
+    if (key1 === 'thou' && key2 === 'maker13'){
       this.statsVisible = true;
       this.entryVisible = false;
       this.searchVisible = true;
       this.dataSnapshot();
-    // }
+    }
 
   }
 
