@@ -1,12 +1,18 @@
 <ng2-slim-loading-bar color="blue"></ng2-slim-loading-bar>
 
-<div>
+
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link" routerLink="/">Home</a>
+    <a class="nav-item nav-link" routerLink="/search">Search</a>
+    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- main app container -->
+<div class="container">
   <router-outlet></router-outlet>
 </div>
-
-
-
-
-
 
 

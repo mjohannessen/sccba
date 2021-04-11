@@ -2,29 +2,32 @@ const express = require('express');
 const app = express();
 const sccbaRoutes = express.Router();
 
+
 // Require Member model in our routes module
-let Member = require('../models/Member');
+//let Member = require('../models/Member');
 
-
-
-
+/* MySQL */
+const mysql = require('mysql2');
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'temby123',
+  database: 'sccba'
+});
 
 
 // Defined get data(index or listing) route
 sccbaRoutes.route('/').get(function (req, res) {
   console.log('backend get all members')
-  Member.find(function (err, member){
-    if(err){
-      console.log(err);
+  connection.query(
+    'SELECT * FROM `world`',
+    function(err, results, fields) {
+      // console.log('results: ' + JSON.stringify(results)); // results contains rows returned by server
+      console.log('results count: ' + results.length.toString())
+      res.json(results);
     }
-    else {
-      console.log('member count: ' + member.length.toString())
-      console.log('member[0]]: ' + JSON.stringify(member[0]))
-      res.json(member);
-    }
-  });
+  );
 });
-
 
 
 function escapeRegExp(string) {
@@ -33,62 +36,167 @@ function escapeRegExp(string) {
 }
 
 
+function remove(string, from, to) {
+  return string.slice(0, from) + string.slice(to);
+}
+
+
 sccbaRoutes.route('/search').post(function (req, res) {
   console.log('backend searching ...')
-
   console.log('req.body: ' + JSON.stringify(req.body))
-
-  //req.body.first_name = new RegExp(`.*${req.body.first_name}.*`)
-  //req.body.first_name = Object({ $regex: '.*' + req.body.first_name + '.*'});
-  // req.body.first_name = '/.*' + req.body.first_name + '.*/';
-  // req.body.first_name = {$regex: '/' + req.body.first_name + '/', $options: 'i'};
-  //req.body.first_name = '/^' + req.body.first_name + '/';
-  // console.log('test: ' + JSON.stringify(req.body.first_name));
-
   const fields = [];
   const values = [];
+  queryString = "SELECT * FROM world WHERE ";
   Object.entries(req.body).forEach(function ([key, value]) {
+
     console.log(`key:value: ${key} ${value}`);
     fields.push(key)
     values.push(req.body[key])
+
+    if(key === 'status'){
+      console.log(req.body['status'].length)
+      if(req.body['status'].length !== 0){
+        queryString = queryString + "status = '" + req.body[key] + "' AND "
+      }
+    }
+
+    // if nibl checked - county has to be not san benito, monterey or santa cruz (blank field)
+    if(req.body['nibl'] === 'y' ){
+      queryString = queryString + "county = '' AND "
+    }
+
+    if (key === 'county') {
+      if(req.body['nibl'] === 'n'){
+        queryString = queryString + key + " LIKE '" + req.body['county'] + "%' AND "
+      }
+    }
+
+    if(key === 'member'){
+      if(req.body['member'] === 'y') {
+        queryString = queryString + "member = 'y' AND "
+      }
+      if(req.body['member'] === 'n') {
+        queryString = queryString + "member = 'n' AND "
+      }
+    }
+
+    if (key === 'sbn') {
+        queryString = queryString + key + " = " + req.body['sbn'] + " AND "
+    }
+
+    if (key === 'practice_areas') {
+      queryString = queryString + key + " LIKE '" + req.body['practice_areas'] + "%' AND "
+    }
+
+
+
   });
+
+  // trim off the last AND
+  queryString = remove(queryString, queryString.length-4, queryString.length)
   console.log('fields: ' + JSON.stringify(fields));
   console.log('values: ' + JSON.stringify(values));
 
-  if (req.body.county) {
-    console.log('county: ' + req.body.county);
-  } else {
-    console.log('No county')
-  }
+  console.log('queryString: ' + queryString)
+  var inserts = fields;
+  sql = connection.format(queryString, inserts);
 
-  //let AMember = Member.model('Member', Schema)
-  //let query = Member.find()
-  //query.select(fields.join(' '))
-  //let result = query.exec()
-  //fields.forEach(field => result[field] = result[field])
-  //console.log(JSON.stringify(result))
-  //res.json(result);
+  connection.execute(
+    sql,
+    function(err, results, fields) {
+      // console.log('results: ' + JSON.stringify(results))
+      if (results) {
+        console.log("results count: " + results.length)
+        res.json(results);
+      } else{
+        console.log("Nothing found")
+        res.json([])
+      }
+
+
+    }
+  );
+
+
+
+
+
+  // Defined edit route
+  sccbaRoutes.route('/edit/:id').get(function (req, res) {
+    console.log("edit: params to backend: " + JSON.stringify(req.params));
+    let id = req.params.id;
+    queryString = "SELECT * FROM world WHERE id = " + id;
+    console.log('queryString: ' + queryString)
+    var inserts = [id];
+    sql = connection.format(queryString, inserts);
+    connection.execute(
+      sql,
+      function(err, results, fields) {
+        console.log('results: ' + JSON.stringify(results)); // results contains rows returned by server
+        res.json(results);
+      }
+    );
+  });
+
+
+
+
+
+  //  Defined update route
+  sccbaRoutes.route('/update/:id').post(function (req, res) {
+    console.log("update passed to backend - params: " + JSON.stringify(req.params))
+    console.log("update passed to backend - body: " + JSON.stringify(req.body))
+    queryString = "UPDATE world SET " +
+      "phone='" + req.body['phone'] + "', " +
+      "fax='" + req.body['fax'] + "', " +
+      "email='" + req.body['email'] + "', " +
+      "member='" + req.body['member'] + "', " +
+      "comments='" + req.body['comments'] + "' " +
+      " WHERE id = '" + req.params["id"] + "'";
+    console.log('queryString: ' + queryString)
+    let id = req.params.id;
+    var inserts = [id];
+    sql = connection.format(queryString, inserts);
+    connection.execute(
+      sql,
+      function(err, results, fields) {
+        console.log('results: ' + JSON.stringify(results)); // results contains rows returned by server
+        res.json(results);
+      }
+    );
+
+  });
+
+
+
+
+
+
+
+
+
+});
+
+/**************** MONGO FUNCTIONS **********************/
 
   /*
-  Promise.all([
-    Member.find({sbn: req.body.sbn}),
-    Member.find({first_name: new RegExp(req.body.first_name, 'i')}),
-    Member.find({last_name: new RegExp(req.body.last_name, 'i')}),
-  ])
-    .then(results=>{
-
-      console.log('Count: ' + results.length)
-      //console.log(JSON.stringify(results))
-
-    })
-    .catch(err=>{
-      console.error("Something went wrong",err);
-    })
-
+  // Defined get data(index or listing) route
+  sccbaRoutes.route('/').get(function (req, res) {
+    console.log('backend get all members')
+    Member.find(function (err, member){
+      if(err){
+        console.log(err);
+      }
+      else {
+        console.log('member count: ' + member.length.toString())
+        console.log('member[0]]: ' + JSON.stringify(member[0]))
+        res.json(member);
+      }
+    });
+  });
    */
 
-
-
+/*
   if (fields.length > 0) {
     Member.find({
         $and: [
@@ -110,26 +218,10 @@ sccbaRoutes.route('/search').post(function (req, res) {
     );
   }
 
-
-
-
+ */
 
 
 /*
-
-  Member.find({last_name: new RegExp(req.body.last_name, 'i')}, function(err, members){
-    if (err){
-      console.log(err);
-    }
-    else{
-      console.log('Count: ' + members.length)
-      //res.json(members);
-    }
-  })
-*/
-
-
-
   Member.find(req.body, function(err, members){
     if (err){
       console.log(err);
@@ -141,15 +233,17 @@ sccbaRoutes.route('/search').post(function (req, res) {
     }
   })
 
-
-
-
-});
-
+ */
 
 
 
 
+
+
+
+
+
+/*
 
 // Defined edit route
 sccbaRoutes.route('/edit/:id').get(function (req, res) {
@@ -221,5 +315,8 @@ sccbaRoutes.route('/delete/:id').get(function (req, res) {
     else res.json('Successfully removed');
   });
 });
+
+
+ */
 
 module.exports = sccbaRoutes;

@@ -1,67 +1,28 @@
 
-<div class="container">
-
-  <br><br>
-
-  <h2 style="text-align: center;">&nbsp;</h2>
-
-  <br>
-
-
-
-
-
-
-  <!-- Entry Form -->
-  <div [hidden]="!entryVisible">
-    <div class="text-center">
-    <form [formGroup]="angForm1" novalidate>
-      <div class="row justify-content-center" >
-
-        <div class="col-6">
-          <div class="form-group" >
-            <label>
-              <input type="text" class="form-control form-control-sm" formControlName="key1" #key1 />
-            </label>
-          </div>
-
-          <div class="form-group">
-            <label>
-             <input type="text" class="form-control form-control-sm" formControlName="key2" #key2 />
-            </label>
-          </div>
-
-          <div class="form-group">
-
-            <button (click) = "auth(
-              key1.value,
-              key2.value
-            )"
-                    type="submit"
-                    class="btn btn-primary btn-sm"
-                    [disabled]="angForm1.invalid">
-            Access
-            </button>
-
-          </div>
-        </div>
-
-      </div>
-    </form>
-    </div>
-
+<div class="card mt-4">
+  <h4 class="card-header">Hi {{currentUser.firstName}}</h4>
+  <!--
+  <div class="card-body">
+    <h6>Users from secure api end point</h6>
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <ul *ngIf="users">
+      <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
+    </ul>
   </div>
+  -->
+</div>
 
+<br><br>
+
+
+<div class="container">
 
 
 
   <!-- Stats div-->
-  <div [hidden]="!statsVisible">
 
-      <h3>Stats</h3>
-
+      <h3>SCCBA Stats</h3>
       <br>
-
       SCCBA Members: {{sccbaMembers.length}}
       <br><br>
       SCCBA Members - Attorneys - Santa Cruz County: {{santaCruzAttorneys.length}}
@@ -121,69 +82,82 @@
       -->
 
     <br><br>
-
-  </div>
-
+</div>
 
 
 
 
 
 
+
+
+<!--
   <div [hidden]="!searchVisible">
     <h3>Search</h3>
-    <form [formGroup]="angForm2" novalidate>
+    <form [formGroup]="searchForm" novalidate>
 
       <div class="form-group">
         <label class="col-md-4">Last Name</label>
         <label>
-          <input type="text" class="form-control form-control-sm" formControlName="last_name" />
+          <input type="text" class="form-control form-control-sm" formControlName="_last_name" />
         </label>
       </div>
 
       <div class="form-group">
         <label class="col-md-4">First Name</label>
         <label>
-          <input type="text" class="form-control form-control-sm" formControlName="first_name" />
+          <input type="text" class="form-control form-control-sm" formControlName="_first_name" />
         </label>
       </div>
 
       <div class="form-group">
         <label class="col-md-4">Status</label>
 
-          <input id="active" type="radio" value="A" name="bar_status" formControlName="bar_status">
+          <input id="active" type="radio" value="A" formControlName="_status">
         &nbsp;
           <label for="active">Active</label>
         &nbsp;&nbsp;&nbsp;
-          <input id="inactive" type="radio" value="I" name="bar_status" formControlName="bar_status">
+          <input id="inactive" type="radio" value="I" formControlName="_status">
         &nbsp;
           <label for="inactive">Inactive</label>
         &nbsp;&nbsp;&nbsp;
-          <input id="notbarmember" type="radio" value="N" name="bar_status" formControlName="bar_status">
+          <input id="notbarmember" type="radio" value="N" formControlName="_status">
         &nbsp;
           <label for="notbarmember">Not a State Bar Member</label>
 
       </div>
 
       <div class="form-group">
-        <label class="col-md-4">County (if State Bar member)</label>
+        <label class="col-md-4">County</label>
         <label>
-          <input type="text" class="form-control form-control-sm" formControlName="county" />
+          <input type="text" class="form-control form-control-sm" formControlName="_county" />
         </label>
       </div>
 
       <div class="form-group">
-        <label class="col-md-4">SCCBA Member</label>
-
-          <input id="membery" type="radio" value="y" name="sccba_member" formControlName="sccba_member">
-        &nbsp;
-          <label for="membery">Yes</label>
-          &nbsp;&nbsp;&nbsp;
-          <input id="membern" type="radio" value="n" name="sccba_member" formControlName="sccba_member">
-        &nbsp;
-          <label for="membern">No</label>
-
+        <label class="col-md-4">Check if not in Santa Cruz, Monterey or San Benito Counties</label>
+        <input id="nibl" type="checkbox" value="y" formControlName="_nibl">
       </div>
+
+      <div class="form-group">
+        <label class="col-md-4">SCCBA member</label>
+        <input id="member" type="checkbox" formControlName="_member">
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Practice Area</label>
+        <label>
+          <input type="text" class="form-control form-control-sm" formControlName="_practice_areas" />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">SBN</label>
+        <label>
+          <input type="text" class="form-control form-control-sm" formControlName="_sbn" />
+        </label>
+      </div>
+
 
       <div class="form-group">
         <button (click) = "doSearch()" type="submit" class="btn btn-primary btn-sm">
@@ -223,7 +197,7 @@
     <td>{{ aresult.last_name }}, {{ aresult.first_name }}</td>
     &nbsp;&nbsp;&nbsp;
     <td>
-      <a [routerLink]="['/edit', aresult._id]" class="btn btn-primary btn-sm">Edit</a>
+      <a [routerLink]="['/edit', aresult.id]" class="btn btn-primary btn-sm">Edit</a>
     </td>
   </tr>
   </tbody>
@@ -237,7 +211,7 @@
 
   </div>
 
-
+-->
 
 <!--
     <tbody>

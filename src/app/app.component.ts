@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { MembersService } from './members.service';
-
-
-
+import { MembersService } from './services/members.service';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import { NavigationCancel,
   Event,
@@ -11,7 +8,15 @@ import { NavigationCancel,
   NavigationError,
   NavigationStart,
   Router } from '@angular/router';
-import Member from './Members';
+
+
+import Member from './models/members';
+import { AuthService } from './services/auth.service';
+import { User } from './models/users';
+
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -22,30 +27,21 @@ export class AppComponent implements OnInit {
 
   title = 'sccba';
   faCoffee = faCoffee;
+  currentUser: User;
 
-  constructor(private loadingBar: SlimLoadingBarService, private router: Router) {
-    this.router.events.subscribe((event: Event) => {
-      this.navigationInterceptor(event);
-    });
+  constructor(private loadingBar: SlimLoadingBarService,
+              private router: Router,
+              private authService: AuthService
+  ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+
     //  whole page background color
     document.body.style.background = '#ffffff';
   }
 
-
-
-  private navigationInterceptor(event: Event): void {
-    if (event instanceof NavigationStart) {
-      this.loadingBar.start();
-    }
-    if (event instanceof NavigationEnd) {
-      this.loadingBar.complete();
-    }
-    if (event instanceof NavigationCancel) {
-      this.loadingBar.stop();
-    }
-    if (event instanceof NavigationError) {
-      this.loadingBar.stop();
-    }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 

@@ -15,8 +15,11 @@
     "cors": "^2.8.5",
     "export-to-csv": "^0.2.1",
     "express": "^4.17.1",
+    "fs": "*",
     "glyphicons": "^0.2.0",
+    "http": "*",
     "mongoose": "^5.7.1",
+    "mysql2": "^2.2.5",
     "querymen": "^2.1.4"
   },
   "devDependencies": {

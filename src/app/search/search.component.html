@@ -1,0 +1,118 @@
+<div class="container">
+
+
+    <!--
+    <div class="alert alert-info">
+      Username: test<br />
+      Password: test
+    </div>
+  -->
+  <br><br>
+
+
+    <div class="card" >
+      <h4 class="card-header align-content-sm-center">Search SCCBA Database</h4>
+      <div class="card-body">
+
+          <form [formGroup]="searchForm" (ngSubmit)="doSearch()">
+
+
+            <div class="form-group">
+              <p>Last name:
+                <input type="text" class="form-control form-control-sm" formControlName="_last_name" />
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p>First name:
+                <input type="text" class="form-control form-control-sm" formControlName="_first_name" />
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p> Status:&nbsp;&nbsp;&nbsp;&nbsp;
+                Active&nbsp;
+              <input id="active" type="radio" value="A" formControlName="_status">&nbsp;
+                Inactive&nbsp;&nbsp;
+              <input id="inactive" type="radio" value="I" formControlName="_status">&nbsp;
+                Not a bar member
+              <input id="notbarmember" type="radio" value="N" formControlName="_status">
+
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p>County:
+                <input type="text" class="form-control form-control-sm" formControlName="_county" />
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p>
+              <input id="nibl" type="checkbox" value="y" formControlName="_nibl">&nbsp;&nbsp;
+              Not in Santa Cruz, Monterey or San Benito Counties
+              </p>
+
+            </div>
+
+            <div class="form-group">
+              <p>
+              <input id="member" type="checkbox" formControlName="_member">&nbsp;&nbsp;
+              SCCBA member
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p>Practice area:
+                <input type="text" class="form-control form-control-sm" formControlName="_practice_areas" />
+              </p>
+            </div>
+
+            <div class="form-group">
+              <p>SBN:
+                <input type="text" class="form-control form-control-sm" formControlName="_sbn" />
+              </p>
+            </div>
+
+            <div class="form-group">
+              <button (click) = "doSearch()" type="submit" class="btn btn-primary btn-sm">
+                Search
+              </button>&nbsp;&nbsp;
+              <button type="button" class="btn" (click)="clearForm()" >Clear</button>
+            </div>
+        </form>
+      </div>
+  </div>
+
+
+  <!-- SEARCH RESULTS -->
+
+  <br><br>
+
+  <div [hidden]="!searchResultsVisible">
+    <h3>Search results</h3>
+    <div class="row">
+      <div class="col-md-auto">
+        Records found: {{searchResults.length}}
+      </div>
+      <div class="col col-sm-2">
+        <button (click) = "exportSearchResults(searchResults)" type="submit" class="btn-primary btn-sm">Export</button>
+      </div>
+    </div>
+
+    <br><br>
+
+    <tbody>
+      <tr *ngFor="let aresult of searchResults">
+        <td class="searchResults">{{ aresult.last_name }}, {{ aresult.first_name }}&nbsp;&nbsp;&nbsp;</td>
+        <td>
+          <a [routerLink]="['/edit', aresult.id]" class="btn-primary btn-sm">Edit</a>
+          <br><br>
+        </td>
+      </tr>
+    </tbody>
+
+  </div>
+
+
+</div>

@@ -11,9 +11,9 @@ import { ExportToCsv } from 'export-to-csv';
 export class MembersService {
 
   // local link for testing (start api first)
-  //uri = 'http://localhost:4001/api/sccba';
+  uri = 'http://localhost:4001/api/sccba';
   // production link
-  uri = 'https://api.omicrondelta.space/api/sccba';
+  //uri = 'https://api.omicrondelta.space/api/sccba';
 
   constructor(private http: HttpClient) { }
 
@@ -86,8 +86,10 @@ export class MembersService {
     phone: any,
     fax: any,
     email: any,
-    sccba_member: any,
+    member: any,
     comments: any,
+    practice_areas: any,
+    sbn: any,
     id: any
   ) {
     console.log('Updating member: ' + id);
@@ -95,8 +97,10 @@ export class MembersService {
       phone,
       fax,
       email,
-      sccba_member,
-      comments
+      member,
+      comments,
+      practice_areas,
+      sbn
     };
     console.log('params passed to backend: ' + JSON.stringify(obj));
     this
@@ -114,7 +118,7 @@ export class MembersService {
     name,
     last_name,
     first_name,
-    bar_status,
+    status,
     address_1,
     address_2,
     city,
@@ -128,8 +132,9 @@ export class MembersService {
     email,
     firm,
     law_school,
-    sccba_member,
-    comments
+    member,
+    comments,
+    practice_areas
   ) {
     console.log(
       sbn,
@@ -137,7 +142,7 @@ export class MembersService {
       name,
       last_name,
       first_name,
-      bar_status,
+      status,
       address_1,
       address_2,
       city,
@@ -151,8 +156,9 @@ export class MembersService {
       email,
       firm,
       law_school,
-      sccba_member,
-      comments
+      member,
+      comments,
+      practice_areas
     );
     const obj = {
       sbn,
@@ -160,7 +166,7 @@ export class MembersService {
       name,
       last_name,
       first_name,
-      bar_status,
+      status,
       address_1,
       address_2,
       city,
@@ -174,8 +180,9 @@ export class MembersService {
       email,
       firm,
       law_school,
-      sccba_member,
-      comments
+      member,
+      comments,
+      practice_areas
     };
     this.http.post(`${this.uri}/add`, obj)
       .subscribe(res => console.log('Done'));
@@ -227,6 +234,7 @@ firm
 law_school
 sccba_member
 comments
+practice_areas
 
 */
 

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import Member from '../Members';
-import { MembersService } from '../members.service';
+import Member from '../models/members';
+import { MembersService } from '../services/members.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+
+import { User } from '../models/users';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { first } from 'rxjs/operators';
 
 
 @Component({
@@ -16,7 +21,7 @@ export class HomeComponent implements OnInit {
   searchResults: Member[] = [];
   nextMember = new Member();
   angForm1: FormGroup;
-  angForm2: FormGroup;
+  searchForm: FormGroup;
   // basic stats
   santaCruzAttorneys: Member[] = [];
   montereyCountyAttorneys: Member[] = [];
@@ -25,41 +30,53 @@ export class HomeComponent implements OnInit {
   // sccbaMembers_attorneys_inarea: Member[] = [];
   sccbaMembers_attorneys_outofarea: Member[] = [];
   sccbaMembers: Member[] = [];
-
   searchDict = {};
+  loading = false;
+  users: User[];
+  authorized = false;
+  currentUser = {};
 
   // production
-  entryVisible = true;
+  // entryVisible = true;
   statsVisible = false;
-  searchVisible = false;
-  searchResultsVisible = false;
+  // searchVisible = false;
+  // searchResultsVisible = false;
 
   // testing
-  //entryVisible = true;
-  //statsVisible = true;
-  //searchVisible = true;
-  //searchResultsVisible = false;
-
-  authorized = false;
+  // entryVisible = true;
+  // statsVisible = true;
+  // searchVisible = true;
+  // searchResultsVisible = false;
 
 
-
-
-
-
-  constructor(private ms: MembersService, private fb: FormBuilder, private route: ActivatedRoute) {
-    this.createForm();
-    this.createSearchForm();
+  constructor(private ms: MembersService, private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService) {
+    // this.createForm();
+    // this.createSearchForm();
   }
 
-
+/*
   exportSearchResults(theresults) {
     console.log('exportSearchResults');
     this.ms.exportCsv(theresults);
   }
 
+ */
+
   ngOnInit() {
-    console.log('ngOnInt');
+    console.log('ngOnInt - home');
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    /*
+    this.loading = true;
+    this.userService.getAll().pipe(first()).subscribe(users => {
+      this.loading = false;
+      this.users = users;
+    });
+
+     */
+
+
     this.ms
       .getMembers()
       .subscribe((data: Member[]) => {
@@ -69,18 +86,24 @@ export class HomeComponent implements OnInit {
           this.dataSnapshot(this.members);
         }
       });
+
   }
 
-
+/*
   createSearchForm() {
-    this.angForm2 = this.fb.group({
-      last_name: '',
-      first_name: '',
-      bar_status: '',
-      county: '',
-      sccba_member: ''
+    this.searchForm = this.fb.group({
+      _last_name: '',
+      _first_name: '',
+      _status: '',
+      _county: '',
+      _member: '',
+      _practice_areas: '',
+      _nibl: '',
+      _sbn: ''
     });
   }
+
+
 
   createForm() {
     this.angForm1 = this.fb.group({
@@ -88,20 +111,28 @@ export class HomeComponent implements OnInit {
       key2: ['', Validators.required ]
     });
   }
+    */
 
 
+/*
   clearForm() {
     console.log('clearForm');
-    this.angForm2.reset();
-    this.angForm2 = this.fb.group({
-      last_name: '',
-      first_name: '',
-      bar_status: '',
-      county: '',
-      sccba_member: ''
+    this.searchForm.reset();
+    this.searchForm = this.fb.group({
+      _last_name: '',
+      _first_name: '',
+      _status: '',
+      _county: '',
+      _member: '',
+      _nibl: '',
+      _practice_areas: '',
+      _sbn: ''
     });
   }
+  */
 
+
+  /*
   auth(key1, key2) {
     // console.log('auth');
     if (key1 === 'thou' && key2 === 'maker13'){
@@ -109,22 +140,22 @@ export class HomeComponent implements OnInit {
       this.entryVisible = false;
       this.searchVisible = true;
       this.authorized = true;
-      //window.location.reload();
-      //this.dataSnapshot();
+      // window.location.reload();
+      // this.dataSnapshot();
     }
 
   }
-
+*/
 
   dataSnapshot(dbEntries) {
-    console.log('dataSnapshot');
+    // console.log('dataSnapshot');
     console.log('db length: ' + dbEntries.length);
-    console.log('dbEntries[0]: ' + JSON.stringify(dbEntries[0]));
+    // console.log('dbEntries[0]: ' + JSON.stringify(dbEntries[100]));
     for ( const member of dbEntries) {
       //  get member data
-      if (member.sccba_member === 'y') {
+      if (member.member === 'y') {
         this.sccbaMembers.push(member);
-        if(member.sbn !== '') {
+        if(member.sbn !== 0) {
           this.sccbaMembers_attorneys.push(member);
           if (member.county === 'Monterey') {
             this.montereyCountyAttorneys.push(member);
@@ -148,51 +179,14 @@ export class HomeComponent implements OnInit {
     console.log('sccbaMembers_attorneys_outofarea length: ' + this.sccbaMembers_attorneys_outofarea.length);
     console.log('sccbaMembers_nonattorneys length: ' + this.sccbaMembers_nonattorneys.length);
 
+    console.log(this.sccbaMembers_attorneys_outofarea[1]['county']);
+
+    for ( const item of this.sccbaMembers_attorneys_outofarea) {
+      console.log(item['county']);
+    }
+
 
   }
-
-  doSearch() {
-    console.log('doSearch');
-    const formValues = this.angForm2.value;
-    console.log('formValues: ' + JSON.stringify(formValues));
-    this.searchDict = {};
-    if (formValues.last_name !== '') {
-      this.searchDict['last_name'] = formValues.last_name;
-    }
-    if (formValues.first_name !== '') {
-      this.searchDict['first_name'] = formValues.first_name;
-    }
-    if (formValues.bar_status !== '') {
-      this.searchDict['bar_status'] = formValues.bar_status;
-    }
-    if (formValues.county !== '') {
-      this.searchDict['county'] = formValues.county;
-    }
-    if (formValues.sccba_member !== '') {
-      this.searchDict['sccba_member'] = formValues.sccba_member;
-    }
-
-    console.log('searchDict: ' + JSON.stringify(this.searchDict));
-    this.ms
-      .doSearch(this.searchDict)
-      .subscribe((searchResults: Member[]) => {
-        this.searchResults = searchResults;
-        console.log('From backend: ' + JSON.stringify(this.searchResults));
-        if (this.searchResults.length > 0) {
-          this.searchResultsVisible = true;
-          console.log('members from memberService: ' + this.searchResults.length.toString());
-          /*
-          for (let i = 0; i < this.members.length; i++) {
-            console.log('this.members[i] ' + JSON.stringify(this.members[i]));
-          }
-          */
-        } else {
-          this.searchResultsVisible = false;
-        }
-      });
-
-  }
-
 
 
 

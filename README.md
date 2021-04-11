@@ -56,7 +56,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     Date formatting:
     https://stackoverflow.com/questions/48183677/how-to-format-date-in-component-of-angular-5
     
-Impost csv
+Import csv
 
     Add final_data.csv to root (from python project)
     cd into project root (members database in sccba collection)
@@ -70,7 +70,11 @@ Impost csv
     > db.dropDatabase()
 
     In DB.js use "DB: 'mongodb://localhost:27017/sccba'
-    
+
+
+Authentication see
+
+    https://github.com/cornflourblue/angular-8-jwt-authentication-example/blob/master/src/app/login/login.component.ts
 
 
 ## Development server

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import Member from '../Members';
-import { MembersService } from '../members.service';
+import Member from '../models/members';
+import { MembersService } from '../services/members.service';
 
 @Component({
   selector: 'app-member-get',
