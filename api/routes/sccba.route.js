@@ -46,58 +46,71 @@ sccbaRoutes.route('/search').post(function (req, res) {
   console.log('req.body: ' + JSON.stringify(req.body))
   const fields = [];
   const values = [];
-  queryString = "SELECT * FROM world WHERE ";
-  Object.entries(req.body).forEach(function ([key, value]) {
+  let queryString = "SELECT * FROM world WHERE ";
 
+  // in every query
+
+
+  if(!("member" in req.body)){
+    queryString = queryString + "member = 'n' AND "
+  } else {
+    queryString = queryString + "member = 'y' AND "
+  }
+
+  // default to active member
+  if(!("status" in req.body)) {
+    queryString = queryString + "status = 'a' AND "
+  } else{
+    queryString = queryString + "status = '" + req.body['status'] + "' AND "
+  }
+
+  if(("sbn" in req.body)){
+    console.log('no status key')
+    queryString = queryString + "sbn = " + req.body['sbn'] + " AND "
+  }
+
+  if(("practice_areas" in req.body)){
+    console.log('no status key')
+    queryString = queryString + "practice_areas LIKE '" + req.body['practice_areas'] + "%' AND "
+  }
+
+  if(("last_name" in req.body)){
+    console.log('no status key')
+    queryString = queryString + "last_name LIKE '" + req.body['last_name'] + "%' AND "
+  }
+
+  if(("first_name" in req.body)){
+    console.log('no status key')
+    queryString = queryString + "first_name LIKE '" + req.body['first_name'] + "%' AND "
+  }
+
+  if(!("nibl" in req.body)){
+    if(("county" in req.body)){
+      queryString = queryString + "county LIKE '" + req.body['county'] + "%' AND "
+    }
+  } else {
+    // not in bar list
+    queryString = queryString + "county NOT LIKE 'Santa Cruz' AND county NOT LIKE 'San Benito' AND county NOT LIKE 'Monterey' AND"
+  }
+
+
+
+
+
+
+
+  Object.entries(req.body).forEach(function ([key, value]) {
     console.log(`key:value: ${key} ${value}`);
     fields.push(key)
     values.push(req.body[key])
-
-    if(key === 'status'){
-      console.log(req.body['status'].length)
-      if(req.body['status'].length !== 0){
-        queryString = queryString + "status = '" + req.body[key] + "' AND "
-      }
-    }
-
-    // if nibl checked - county has to be not san benito, monterey or santa cruz (blank field)
-    if(req.body['nibl'] === 'y' ){
-      queryString = queryString + "county = '' AND "
-    }
-
-    if (key === 'county') {
-      if(req.body['nibl'] === 'n'){
-        queryString = queryString + key + " LIKE '" + req.body['county'] + "%' AND "
-      }
-    }
-
-    if(key === 'member'){
-      if(req.body['member'] === 'y') {
-        queryString = queryString + "member = 'y' AND "
-      }
-      if(req.body['member'] === 'n') {
-        queryString = queryString + "member = 'n' AND "
-      }
-    }
-
-    if (key === 'sbn') {
-        queryString = queryString + key + " = " + req.body['sbn'] + " AND "
-    }
-
-    if (key === 'practice_areas') {
-      queryString = queryString + key + " LIKE '" + req.body['practice_areas'] + "%' AND "
-    }
-
-
-
   });
 
   // trim off the last AND
   queryString = remove(queryString, queryString.length-4, queryString.length)
   console.log('fields: ' + JSON.stringify(fields));
   console.log('values: ' + JSON.stringify(values));
-
   console.log('queryString: ' + queryString)
+
   var inserts = fields;
   sql = connection.format(queryString, inserts);
 

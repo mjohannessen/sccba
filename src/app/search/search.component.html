@@ -32,7 +32,7 @@
             <div class="form-group">
               <p> Status:&nbsp;&nbsp;&nbsp;&nbsp;
                 Active&nbsp;
-              <input id="active" type="radio" value="A" formControlName="_status">&nbsp;
+              <input id="active" type="radio" value="A" formControlName="_status" [checked]="true" >&nbsp;
                 Inactive&nbsp;&nbsp;
               <input id="inactive" type="radio" value="I" formControlName="_status">&nbsp;
                 Not a bar member
@@ -57,7 +57,7 @@
 
             <div class="form-group">
               <p>
-              <input id="member" type="checkbox" formControlName="_member">&nbsp;&nbsp;
+              <input id="member" type="checkbox" formControlName="_member"  >&nbsp;&nbsp;
               SCCBA member
               </p>
             </div>

@@ -12,10 +12,10 @@ usersRoutes.route('/').post(function (req, res) {
   console.log('Backend post /')
   const aUser = {
     id: 999,
-    username: 'mfjlaw@gmail.com',
+    username: 'me@gmail.com',
     password: 'test123',
-    firstName: 'Mark',
-    lastName: 'Johannessen',
+    firstName: 'TestUser',
+    lastName: 'TestLastName',
     token: 'thetoken'
   }
   res.json(aUser);
