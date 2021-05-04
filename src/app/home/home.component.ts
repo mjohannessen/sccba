@@ -63,18 +63,13 @@ export class HomeComponent implements OnInit {
  */
 
   ngOnInit() {
-    console.log('ngOnInt - home');
-
+    console.log('home.component ngOnInt');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    /*
     this.loading = true;
     this.userService.getAll().pipe(first()).subscribe(users => {
       this.loading = false;
       this.users = users;
     });
-
-     */
 
 
     this.ms

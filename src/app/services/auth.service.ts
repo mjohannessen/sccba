@@ -4,7 +4,6 @@ import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/users';
-
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  uri = 'http://localhost:4001/api/users/';
+  // uri = 'http://localhost:4001/api/users/';
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
@@ -23,12 +22,13 @@ export class AuthService {
   }
 
   public get currentUserValue(): User {
+    console.log('auth.service currentUserValue: ' + this.currentUserSubject.value);
     return this.currentUserSubject.value;
   }
 
   login(username: string, password: string) {
-    console.log('login: ' + username + ':' + password);
-    return this.http.post<any>(this.uri, { username, password })
+    console.log('auth.service login: ' + `${environment.apiUrl}/users/authenticate`);
+    return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -38,6 +38,7 @@ export class AuthService {
   }
 
   logout() {
+    console.log('auth.service logout');
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

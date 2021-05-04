@@ -39,6 +39,7 @@ export class MembersService {
   }
 
   getMembers() {
+    console.log('members.service getMembers');
     // console.log('member.service getMembers: ' + this.uri);
     return this
       .http
@@ -47,7 +48,7 @@ export class MembersService {
 
 
   doSearch(searchDict) {
-    console.log('getMembers (memberService)');
+    console.log('members.service doSearch');
     console.log('members.service - passed searchDict to backend: ' + JSON.stringify(searchDict));
     return this.http.post(`${this.uri}/search`, searchDict)
       .pipe(
@@ -57,6 +58,7 @@ export class MembersService {
 
 
   private handleError(error: HttpErrorResponse) {
+    console.log('members.service handleError');
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -92,7 +94,7 @@ export class MembersService {
     sbn: any,
     id: any
   ) {
-    console.log('Updating member: ' + id);
+    console.log('members.service updateMember: ' + id);
     const obj = {
       phone,
       fax,
@@ -136,6 +138,7 @@ export class MembersService {
     comments,
     practice_areas
   ) {
+    console.log('members.service addMember');
     console.log(
       sbn,
       admission_date,
@@ -194,7 +197,7 @@ export class MembersService {
 
 
   deleteMember(id) {
-    console.log('deleteMember');
+    console.log('members.service deleteMember');
     /*
     return this
       .http

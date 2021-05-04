@@ -40,12 +40,14 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    console.log('app.component logout');
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
 
   ngOnInit() {
+    console.log('app.component ngOnInit');
   }
 
 
