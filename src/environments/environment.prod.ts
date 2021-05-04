@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:400'
+  apiUrl: 'https://api.omicrondelta.space/api'
 };
